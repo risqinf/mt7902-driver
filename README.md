@@ -144,3 +144,9 @@ mitigations.
 - The firmware blobs under `firmware/` are **proprietary** MediaTek images.
 
 See [NOTICE](NOTICE) for the full breakdown.
+
+## Support
+
+If this driver helped you get the MT7902 working, you can support the work here:
+
+- Ko-fi: https://ko-fi.com/risqinf
