@@ -1,0 +1,14 @@
+[Unit]
+Description=Load custom MT7902 Wi-Fi and Bluetooth drivers
+DefaultDependencies=no
+After=network-pre.target
+Before=network.target network-online.target
+Wants=network-pre.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/mt7902-load.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,9 @@
+# Treat firmware blobs as binary
+firmware/* binary
+
+# Normalize line endings for text sources
+*.c    text eol=lf
+*.h    text eol=lf
+*.sh   text eol=lf
+*.md   text eol=lf
+Makefile text eol=lf

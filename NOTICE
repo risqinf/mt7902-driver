@@ -1,0 +1,55 @@
+mt7902-driver — licensing and attribution notice
+=================================================
+
+This repository bundles several kinds of material under different licenses.
+Please read this notice before redistributing.
+
+1. Original project files — MIT License
+----------------------------------------
+The build wrappers, scripts, systemd units, modprobe configuration and
+documentation written for this project are licensed under the MIT License
+(see the LICENSE file).
+
+
+2. Vendored Linux kernel driver sources — kernel licenses
+---------------------------------------------------------
+The contents of src/mt76/ and src/bluetooth/ are derived from the Linux kernel
+mt76 driver and the kernel Bluetooth subsystem. Each file keeps the
+SPDX-License-Identifier declared in its header. In summary:
+
+  - src/mt76/**            : mostly BSD-3-Clause-Clear;
+                             mt76_compat.h (project-added) is ISC
+  - src/bluetooth/btusb.c  : GPL-2.0-or-later
+  - src/bluetooth/btmtk.*  : ISC
+  - src/bluetooth/btintel.h, btbcm.h, btrtl.h : GPL-2.0-or-later
+                             (CONFIG-gated copies of the kernel headers)
+
+Always defer to the SPDX tag at the top of each individual file. These files
+are NOT relicensed by this repository. Their copyright belongs to their
+respective authors (MediaTek Inc., Felix Fietkau, Lorenzo Bianconi and other
+kernel contributors). Redistribution must comply with the original license of
+each file.
+
+Upstream source: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+                 drivers/net/wireless/mediatek/mt76
+                 drivers/bluetooth
+
+
+3. Firmware blobs — proprietary
+-------------------------------
+The files under firmware/ are proprietary MediaTek firmware images:
+
+  - WIFI_RAM_CODE_MT7902_1.bin
+  - WIFI_MT7902_patch_mcu_1_1_hdr.bin
+  - BT_RAM_CODE_MT7902_1_1_hdr.bin
+
+They are redistributed here for convenience only. Copyright belongs to
+MediaTek Inc. and/or the hardware OEM. They are not covered by the MIT License
+or by the kernel licenses above. Consult your hardware vendor for the terms
+that apply to firmware redistribution.
+
+
+4. Attribution / prior work
+---------------------------
+This project consolidates community work on enabling the MT7902. See
+docs/SOURCES.md for the full list of references and prior repositories.
