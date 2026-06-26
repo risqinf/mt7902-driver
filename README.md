@@ -23,11 +23,12 @@ depends on recent kernel interfaces.
 | 7.0.x             | Supported (this is the upstream snapshot target)  |
 | 6.19.x            | Supported and tested (6.19.10)                    |
 | 6.16 - 6.18       | Supported                                         |
-| 6.12 - 6.15       | Not supported by this snapshot; may need API edits|
+| 6.12 - 6.15       | Supported and tested (compat shims for Airoha NPU |
+|                   | offload stubs + page_pool API backport)           |
 | 5.19 and older    | Not supported - required APIs do not exist        |
 
 A build-time guard in `src/mt76/mt76_compat.h` stops the build with a clear
-message on kernels below 6.16 instead of emitting a wall of errors.
+message on kernels below 6.12 instead of emitting a wall of errors.
 
 ### Tested configuration
 
@@ -39,11 +40,17 @@ This package was built and verified on:
 - Compiler: GCC (GCC-built kernel)
 - Result: Wi-Fi and Bluetooth both working, including simultaneous use
 
+- Distribution: Rocky Linux 10 (EL10)
+- Kernel: 6.12.0-211.26.1.el10_2.x86_64
+- Compiler: GCC 14.3.1
+- Result: Wi-Fi and Bluetooth modules build and load successfully
+
 > Note on distributions: a modern Fedora release (Fedora 41/42 and later) ships
-> a 6.1x/7.x kernel, which is the right target. Kernel 5.19 is too old for this
-> driver: there is no MT7902-capable `mt76` code for that series. If your
-> distribution already ships Linux 7.1+, it includes MT7902 support natively and
-> you do not need this package.
+> a 6.1x/7.x kernel, which is the right target. Enterprise distributions like
+> Rocky Linux 10 / RHEL 10 (kernel 6.12) are also supported via compatibility
+> shims. Kernel 5.19 is too old for this driver: there is no MT7902-capable
+> `mt76` code for that series. If your distribution already ships Linux 7.1+, it
+> includes MT7902 support natively and you do not need this package.
 
 ## Project layout
 

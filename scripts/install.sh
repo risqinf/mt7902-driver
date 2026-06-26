@@ -61,10 +61,10 @@ backup_path() {
 KMAJOR="${KVER%%.*}"
 KREST="${KVER#*.}"
 KMINOR="${KREST%%.*}"
-if (( KMAJOR < 6 || (KMAJOR == 6 && KMINOR < 16) )); then
-	die "Kernel ${KVER} is too old. This driver requires Linux 6.16 or newer. See README.md."
+if (( KMAJOR < 6 || (KMAJOR == 6 && KMINOR < 12) )); then
+    die "Kernel ${KVER} is too old. This driver requires Linux 6.12 or newer."
 fi
-log "Kernel ${KVER} is within the supported range (6.16+)."
+log "Kernel ${KVER} is within the supported range (6.12+)."
 
 # ---------------------------------------------------------------------------
 # 0b. Secure Boot advisory

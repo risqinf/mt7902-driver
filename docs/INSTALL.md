@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - A laptop with the MediaTek MT7902 (`lspci -nn | grep 14c3:7902`).
-- A **supported kernel (6.16 or newer)** and its matching headers. See the
+- A **supported kernel (6.12 or newer)** and its matching headers. See the
   support table in the project README. The build will stop with a clear message
   on older kernels.
 - An internet connection (Ethernet or USB/phone tethering) the first time, to

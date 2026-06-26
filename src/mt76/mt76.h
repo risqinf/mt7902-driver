@@ -13,7 +13,10 @@
 #include <linux/leds.h>
 #include <linux/usb.h>
 #include <linux/average.h>
+#include <linux/version.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 16, 0)
 #include <linux/soc/airoha/airoha_offload.h>
+#endif
 #include <linux/soc/mediatek/mtk_wed.h>
 #include <net/mac80211.h>
 #include <net/page_pool/helpers.h>
@@ -2006,8 +2009,14 @@ static inline void mt76_put_page_pool_buf(void *buf, bool allow_direct)
 {
 	struct page *page = virt_to_head_page(buf);
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 16, 0)
+	/* Kernel 6.12–6.15: page->pp is directly accessible in struct page */
+	page_pool_put_full_page(page->pp, page, allow_direct);
+#else
+	/* Kernel 6.16+/7.0+: page->pp removed; use netmem descriptor */
 	page_pool_put_full_page(pp_page_to_nmdesc(page)->pp, page,
 				allow_direct);
+#endif
 }
 
 static inline void *

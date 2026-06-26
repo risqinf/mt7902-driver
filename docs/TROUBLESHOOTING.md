@@ -118,16 +118,32 @@ dmesg | grep -i -E 'btusb|btmtk|bluetooth'
   sudo systemctl restart bluetooth
   ```
 
-## Build stops with "targets Linux 6.16 or newer"
+## Build stops with "targets Linux 6.12 or newer"
 
 Your running kernel is older than this driver snapshot supports. The mt76 code
-here depends on APIs that do not exist on older kernels (for example the Airoha
-offload header and recent mac80211 interfaces).
+here depends on APIs that do not exist on kernels older than 6.12.
 
 Options:
-- Boot a 6.16+ kernel and rebuild.
+- Boot a 6.12+ kernel and rebuild.
 - On a distribution shipping Linux 7.1+, drop this package and use the in-tree
   MT7902 support instead.
+
+## Build fails with pp_page_to_nmdesc or page_pool errors
+
+Symptom: `error: implicit declaration of function 'pp_page_to_nmdesc'`
+
+This means the `page_pool` API compatibility shim is not being applied. The
+driver uses a version-guarded `#if` in `mt76.h` to handle the API difference:
+
+- **Kernel 6.12–6.15**: uses `page->pp` (direct `struct page` member)
+- **Kernel 6.16+/7.0+**: uses `pp_page_to_nmdesc(page)->pp` (netmem API)
+
+If you see this error, verify that `linux/version.h` is present in your kernel
+headers and that `LINUX_VERSION_CODE` is correctly defined. Rebuild:
+
+```bash
+sudo make -C src/mt76 clean && sudo ./scripts/install.sh
+```
 
 ## Module fails to load (version magic / unknown symbol)
 
